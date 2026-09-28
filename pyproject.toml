@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rcd-retrieval"
+version = "0.1.0"
+description = "Representation Correction Distillation with IMRNNs and Search-Adaptor teachers"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+authors = [{name = "Yash Saxena"}]
+dependencies = [
+  "imrnns==0.2.3",
+  "numpy>=1.26,<3",
+  "psutil>=5.9",
+  "sentence-transformers>=3.4,<4",
+  "torch>=2.4,<3",
+  "transformers>=4.51,<5",
+]
+
+[project.optional-dependencies]
+faiss = ["faiss-cpu>=1.8"]
+dev = ["pytest>=8.3", "ruff>=0.9"]
+
+[project.scripts]
+rcd-train = "rcd_retrieval.cli:main"
+rcd-prepare-beir = "rcd_retrieval.beir_splits:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

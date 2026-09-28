@@ -1,0 +1,3 @@
+include README.md CONTRIBUTING.md requirements.txt train.py
+recursive-include examples *.sh *.slurm
+recursive-include tests *.py

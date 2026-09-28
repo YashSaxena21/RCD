@@ -80,11 +80,11 @@ dataset/
 
 Corpus rows use `_id`, `title` (optional), and `text`. Query rows use `_id`, `text`, and `type`; use `"type": "retrieval"` for datasets without typed queries. Qrels may use the BEIR three-column format with a header.
 
-The core pipeline also supports the existing ComLQ, LegalBench-RAG, FinQA, and QASPER loaders. `rcd_retrieval.beir_splits` prepares deterministic low-resource splits for BEIR datasets that expose only one qrels split.
+The core pipeline supports ComLQ and LegalBench-RAG data preparation. `rcd_retrieval.beir_splits` prepares deterministic low-resource splits for SciFact and NFCorpus while preserving their official test sets.
 
 ```bash
 rcd-prepare-beir \
-  --datasets scifact nfcorpus webis-touche2020 trec-covid scidocs \
+  --datasets scifact nfcorpus \
   --data_root datasets \
   --output_root prepared/beir
 ```
@@ -174,9 +174,10 @@ A Slurm template is in [`examples/slurm/train_rcd.slurm`](examples/slurm/train_r
 python -m pytest
 python -m rcd_retrieval.margin_mse --run_loss_tests
 python -m rcd_retrieval.embeddistill --run_loss_tests
+rcd-train rcd --teacher search-adaptor --run_search_adaptor_tests
 ```
 
-The unit tests cover objective invariants, masking, qrel-label rejection, variant contracts, deterministic teacher fractions, and encoder configuration. A real dry run still requires a dataset and a matching teacher checkpoint.
+The unit tests cover objective invariants, masking, qrel-label rejection, variant contracts, strict resume behavior, candidate fingerprints, deterministic teacher fractions, exact teacher-subset validation, and encoder configuration. A real dry run still requires a dataset and a matching teacher checkpoint.
 
 ## Method references
 

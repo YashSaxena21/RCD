@@ -1,0 +1,6 @@
+imrnns==0.2.3
+numpy>=1.26,<3
+psutil>=5.9
+sentence-transformers>=3.4,<4
+torch>=2.4,<3
+transformers>=4.51,<5
